@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Videos</title>
+    <style>
+        .video {
+            margin-bottom: 20px;
+        }
+        .pagination {
+            margin-top: 20px;
+        }
+        .pagination a {
+            margin: 0 10px;
+            text-decoration: none;
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+        }
+        .pagination a.disabled {
+            background-color: #cccccc;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Educational YouTube Videos</h1>
+    {% for video in videos %}
+        <div class="video">
+            <h3>{{ video.title }}</h3>
+            <img src="{{ video.thumbnail }}" alt="Thumbnail">
+            <p>{{ video.description }}</p>
+            <a href="https://www.youtube.com/watch?v={{ video.videoId }}" target="_blank">Watch on YouTube</a>
+        </div>
+    {% endfor %}
+
+    <div class="pagination">
+        {% if prev_page_token %}
+            <a href="/?pageToken={{ prev_page_token }}">Previous</a>
+        {% else %}
+            <a class="disabled">Previous</a>
+        {% endif %}
+
+        {% if next_page_token %}
+            <a href="/?pageToken={{ next_page_token }}">Next</a>
+        {% else %}
+            <a class="disabled">Next</a>
+        {% endif %}
+    </div>
+</body>
+</html>
